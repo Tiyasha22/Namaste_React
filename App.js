@@ -1,3 +1,7 @@
+import React from "react";
+
+import { createRoot } from "react-dom/client";
+
 const parent = React.createElement(
   "div",
   { id: "parent" },
@@ -13,5 +17,5 @@ const heading = React.createElement(
   "Hello world from React 2"
 );
 console.log(heading);
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = createRoot(document.getElementById("root"));
 root.render(parent);

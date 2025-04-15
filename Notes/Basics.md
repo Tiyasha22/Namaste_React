@@ -12,4 +12,5 @@ React is a JavaScript library for building user interfaces. It was developed by 
 React is a JavaScript library for building user interfaces, while ReactDOM is a library that facilitates rendering React components into the browser's DOM. Think of React as defining what the UI should look like through components, and ReactDOM as the tool that translates those components into the actual elements displayed in a web browser.
 
 ● What is difference between react.development.js and react.production.js files via CDN?
+
 ● What is async and defer?
