@@ -1,18 +1,16 @@
 // const styleCard = { backgroundColor: "#f0f0f0" };
 const RestaurantCard = ({ resData }) => {
-  const { name, cuisines = [], rating, deliveryTime } = resData;
-
   return (
     <div className="res-card" style={{ backgroundColor: "#f0f0f0" }}>
       <img
-        src="https://www.shutterstock.com/image-photo/fried-salmon-steak-cooked-green-600nw-2489026949.jpg"
+        src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${resData.cloudinaryImageId}`}
         alt={`${name} restaurant`}
         className="res-logo"
       />
-      <h3>{name}</h3>
-      <h4>{cuisines.join(", ")}</h4>
-      <h4>{rating}</h4>
-      <h4>{deliveryTime} mins</h4>
+      <h3>{resData.name}</h3>
+      <h4>{resData.cuisines.join(", ")}</h4>
+      <h4>{resData.avgRating}</h4>
+      <h4>{resData.sla.deliveryTime} mins</h4>
     </div>
   );
 };
