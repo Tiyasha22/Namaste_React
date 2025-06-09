@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react";
-import RestaurantCard from "./RestauantCard";
+import RestaurantCard, { withAggregatedDiscount } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 const Body = () => {
-  console.log("Body component rendered");
-
   const [listOfRestaurants, setListOfRestaurant] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
   const [searchContent, setSearchContent] = useState("");
-
+  const RestaurantWithDiscount = withAggregatedDiscount(RestaurantCard);
   useEffect(() => {
     fetchData();
   }, []);
+  // console.log("Body component rendered", listOfRestaurants);
   const fetchData = async () => {
     const data = await fetch(
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.99740&lng=79.00110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
@@ -32,18 +31,18 @@ const Body = () => {
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search">
+      <div className="flex justify-between p-4">
+        <div className="px-4">
           <input
             type="text"
-            className="search-box"
+            className="border border-solid rounded-lg border-black"
             value={searchContent}
             onChange={(e) => {
               setSearchContent(e.target.value);
             }}
           />
           <button
-            className="btn-search"
+            className="px-2 m-2 rounded-lg bg-green-300 text-white"
             onClick={() => {
               //filter the restaurant card and update the ui
               const searchRestaurants = listOfRestaurants.filter((res) =>
@@ -60,6 +59,7 @@ const Body = () => {
           </button>
         </div>
         <button
+          className="px-2 bg-yellow-200 rounded-lg"
           onClick={() => {
             // console.log("listOfRestaurants", listOfRestaurants);
 
@@ -76,16 +76,19 @@ const Body = () => {
         </button>
       </div>
 
-      <div className="res-container">
+      <div className="flex flex-wrap">
         {filteredRestaurant.map((restaurant) => {
           if (restaurant?.info) {
-            // console.log(restaurant.info);
             return (
               <Link
                 to={"/restaurant/" + restaurant.info.id}
                 key={restaurant.info.id}
               >
-                <RestaurantCard resData={restaurant.info} />
+                {restaurant.info.aggregatedDiscountInfoV3 ? (
+                  <RestaurantWithDiscount resData={restaurant.info} />
+                ) : (
+                  <RestaurantCard resData={restaurant.info} />
+                )}
               </Link>
             );
           }
