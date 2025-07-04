@@ -2,30 +2,38 @@ import { useState, useEffect } from "react";
 import RestaurantCard, { withAggregatedDiscount } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useListOfRestaurants from "../utils/useListOfRestaurants.js";
 const Body = () => {
-  const [listOfRestaurants, setListOfRestaurant] = useState([]);
-  const [filteredRestaurant, setFilteredRestaurant] = useState([]);
-  const [searchContent, setSearchContent] = useState("");
+  // const [listOfRestaurants, setListOfRestaurant] = useState([]);
+  // const [filteredRestaurant, setFilteredRestaurant] = useState([]);
+  // const [searchContent, setSearchContent] = useState("");
+  const {
+    listOfRestaurants,
+    filteredRestaurant,
+    searchContent,
+    setSearchContent,
+    setFilteredRestaurant,
+  } = useListOfRestaurants();
   const RestaurantWithDiscount = withAggregatedDiscount(RestaurantCard);
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
   // console.log("Body component rendered", listOfRestaurants);
-  const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.99740&lng=79.00110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
-    const json = await data.json();
+  // const fetchData = async () => {
+  //   const data = await fetch(
+  //     "https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.99740&lng=79.00110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+  //   );
+  //   const json = await data.json();
 
-    setListOfRestaurant(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants || []
-    );
-    setFilteredRestaurant(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants || []
-    );
-  };
+  //   setListOfRestaurant(
+  //     json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+  //       ?.restaurants || []
+  //   );
+  //   setFilteredRestaurant(
+  //     json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+  //       ?.restaurants || []
+  //   );
+  // };
 
   return listOfRestaurants.length === 0 ? (
     <Shimmer />

@@ -1,9 +1,11 @@
+import { CDN_URL } from "../utils/constant";
+
 // const styleCard = { backgroundColor: "#f0f0f0" };
 const RestaurantCard = ({ resData }) => {
   return (
     <div className="w-56  m-4 rounded-sm p-4 bg-gray-50 hover:bg-gray-200">
       <img
-        src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${resData.cloudinaryImageId}`}
+        src={CDN_URL + resData.cloudinaryImageId}
         alt={`${name} restaurant`}
         className="rounded-md h-48 w-48 object-cover"
       />

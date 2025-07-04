@@ -1,11 +1,11 @@
-import {useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const useRestaurantMenu = (resId) => {
   const [resInfo, setResInfo] = useState(null);
   const [itemCards, setItemCards] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [category, setCategory] = useState([]);
   useEffect(() => {
     fetchMenu();
   }, [resId]);
@@ -14,22 +14,30 @@ const useRestaurantMenu = (resId) => {
     try {
       setIsLoading(true);
       setError(null);
-      
+
       const data = await fetch(
         `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=21.99740&lng=79.00110&restaurantId=${resId}&catalog_qa=undefined&submitAction=ENTER`
       );
-      
+
       if (!data.ok) {
-        throw new Error('Failed to fetch menu data');
+        throw new Error("Failed to fetch menu data");
       }
 
       const json = await data.json();
-      
+
       const restaurantInfo = json?.data?.cards[2]?.card?.card?.info;
       const items =
         json.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
           ?.card?.itemCards || [];
+      const categories =
+        json.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+          (c) =>
+            c.card?.card?.["@type"] ==
+            "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+        );
 
+      setCategory(categories);
+      console.log(category);
       setResInfo(restaurantInfo);
       setItemCards(items);
     } catch (err) {
@@ -40,7 +48,7 @@ const useRestaurantMenu = (resId) => {
     }
   };
 
-  return { resInfo, itemCards, isLoading, error };
+  return { resInfo, itemCards, isLoading, error, category };
 };
 
 export default useRestaurantMenu;
