@@ -1,3 +1,4 @@
+import { useState } from "react";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import RestaurantCategory from "./RestaurantCategory";
 import Shimmer from "./Shimmer";
@@ -27,7 +28,7 @@ const RestaurantMenu = () => {
           <li key={item.card.info.id}>{item.card.info.name}</li>
         ))}
       </ul> */}
-      {category.map((cat) => (
+      {category.map((cat, index) => (
         <RestaurantCategory
           key={cat.card.card.categoryId}
           data={cat?.card?.card}

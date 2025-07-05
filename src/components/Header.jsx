@@ -1,8 +1,10 @@
 import { LOGO_URL } from "../utils/constant";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import UserContext from "../utils/UserContext";
 const Header = () => {
   const [btnLogin, setBtnLogin] = useState("Login");
+  const { loggedInUser } = useContext(UserContext);
   return (
     <div className="flex shadow-lg bg-gray-100 justify-between">
       <div>
@@ -19,12 +21,11 @@ const Header = () => {
           <li className="px-2">
             <Link to="contact">Contact</Link>
           </li>
-          <li className="px-2">
-            <Link to="cart">Cart</Link>
-          </li>
+
           <button className="login" onClick={() => setBtnLogin("Logout")}>
             {btnLogin}
           </button>
+          <li className="px-2 font-bold">{loggedInUser}</li>
         </ul>
       </div>
     </div>

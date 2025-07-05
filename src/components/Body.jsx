@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
 import RestaurantCard, { withAggregatedDiscount } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useListOfRestaurants from "../utils/useListOfRestaurants.js";
+
 const Body = () => {
   // const [listOfRestaurants, setListOfRestaurant] = useState([]);
   // const [filteredRestaurant, setFilteredRestaurant] = useState([]);
@@ -65,6 +65,13 @@ const Body = () => {
           >
             Search
           </button>
+        </div>
+        <div>
+          <label>Username:</label>
+          <input
+            type="text"
+            className=" mx-2 p-2 border border-solid rounded-lg border-black"
+          />
         </div>
         <button
           className="px-2 bg-yellow-200 rounded-lg"
