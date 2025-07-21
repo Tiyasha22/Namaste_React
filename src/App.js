@@ -7,7 +7,8 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Contact from "./components/Contact";
 import RestaurantMenu from "./components/RestaurantMenu";
 import AboutClass from "./components/About";
-import UserContext from "./utils/UserContext";
+import UserContext from "./utils/UserContext.js";
+import Cart from "./components/Cart";
 /*
 Header
 -Logo
@@ -41,6 +42,7 @@ const appRouter = createBrowserRouter([
       { path: "/", element: <Body /> },
       { path: "/about", element: <AboutClass /> },
       { path: "/contact", element: <Contact /> },
+      { path: "/cart", element: <Cart /> },
       { path: "/restaurant/:resId", element: <RestaurantMenu /> },
     ],
     errorElement: <Error />,

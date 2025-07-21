@@ -1,7 +1,7 @@
-import { LOGO_URL } from "../utils/constant";
+import { LOGO_URL } from "../utils/constant.js";
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import UserContext from "../utils/UserContext";
+import UserContext from "../utils/UserContext.js";
 const Header = () => {
   const [btnLogin, setBtnLogin] = useState("Login");
   const { loggedInUser } = useContext(UserContext);
@@ -17,6 +17,9 @@ const Header = () => {
           </li>
           <li className="px-2">
             <Link to="about">About Us</Link>
+          </li>
+          <li className="px-2">
+            <Link to="cart">Cart</Link>
           </li>
           <li className="px-2">
             <Link to="contact">Contact</Link>
