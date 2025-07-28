@@ -32,7 +32,7 @@ const RestaurantMenu = () => {
         <RestaurantCategory
           key={cat.card.card.categoryId}
           data={cat?.card?.card}
-          isShown={index === showIndex && false}
+          isShown={index === showIndex}
           setShowIndex={() => setShowIndex(index)}
         />
       ))}

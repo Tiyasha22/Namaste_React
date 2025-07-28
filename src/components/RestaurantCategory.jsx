@@ -3,6 +3,7 @@ import ItemList from "./ItemList";
 const RestaurantCategory = function ({ data, isShown, setShowIndex }) {
   const handleClick = function () {
     setShowIndex();
+    console.log("clicked");
   };
   return (
     <div>
