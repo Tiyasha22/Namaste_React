@@ -13,6 +13,7 @@ const Body = () => {
     searchContent,
     setSearchContent,
     setFilteredRestaurant,
+    isLoading,
   } = useListOfRestaurants();
   const RestaurantWithDiscount = withAggregatedDiscount(RestaurantCard);
   // useEffect(() => {

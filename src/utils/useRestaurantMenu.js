@@ -37,7 +37,7 @@ const useRestaurantMenu = (resId) => {
         );
 
       setCategory(categories);
-      console.log(category);
+
       setResInfo(restaurantInfo);
       setItemCards(items);
     } catch (err) {

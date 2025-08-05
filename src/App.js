@@ -9,6 +9,8 @@ import RestaurantMenu from "./components/RestaurantMenu";
 import AboutClass from "./components/About";
 import UserContext from "./utils/UserContext.js";
 import Cart from "./components/Cart";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore.js";
 /*
 Header
 -Logo
@@ -26,12 +28,14 @@ const AppLayout = () => {
     setUserName(data.name);
   }, []);
   return (
-    <UserContext.Provider value={{ loggedInUser: userName }}>
-      <div className="app">
-        <Header />
-        <Outlet />
-      </div>
-    </UserContext.Provider>
+    <Provider store={appStore}>
+      <UserContext.Provider value={{ loggedInUser: userName }}>
+        <div className="app">
+          <Header />
+          <Outlet />
+        </div>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 const appRouter = createBrowserRouter([
