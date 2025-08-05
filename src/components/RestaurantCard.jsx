@@ -2,6 +2,7 @@ import { CDN_URL } from "../utils/constant";
 
 // const styleCard = { backgroundColor: "#f0f0f0" };
 const RestaurantCard = ({ resData }) => {
+  console.log(resData);
   return (
     <div className="w-56  m-4 rounded-sm p-4 bg-gray-50 hover:bg-gray-200">
       <img
@@ -15,6 +16,7 @@ const RestaurantCard = ({ resData }) => {
         <h4>{resData.avgRating}</h4>
         <h4>{resData.sla.deliveryTime} mins</h4>
       </div>
+      <h4 className="text-sm">{resData.costForTwo}</h4>
     </div>
   );
 };
