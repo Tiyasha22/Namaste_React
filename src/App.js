@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Error from "./components/Error";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import About from "./components/About";
 import Contact from "./components/Contact";
 import RestaurantMenu from "./components/RestaurantMenu";
 import AboutClass from "./components/About";
+import UserContext from "./utils/UserContext.js";
+import Cart from "./components/Cart";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore.js";
 /*
 Header
 -Logo
@@ -17,11 +20,22 @@ Body
 */
 
 const AppLayout = () => {
+  const [userName, setUserName] = useState();
+  useEffect(() => {
+    const data = {
+      name: "MOMO",
+    };
+    setUserName(data.name);
+  }, []);
   return (
-    <div className="app">
-      <Header />
-      <Outlet />
-    </div>
+    <Provider store={appStore}>
+      <UserContext.Provider value={{ loggedInUser: userName }}>
+        <div className="app">
+          <Header />
+          <Outlet />
+        </div>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 const appRouter = createBrowserRouter([
@@ -32,6 +46,7 @@ const appRouter = createBrowserRouter([
       { path: "/", element: <Body /> },
       { path: "/about", element: <AboutClass /> },
       { path: "/contact", element: <Contact /> },
+      { path: "/cart", element: <Cart /> },
       { path: "/restaurant/:resId", element: <RestaurantMenu /> },
     ],
     errorElement: <Error />,

@@ -17,7 +17,6 @@ class UserClass extends React.Component {
     const data = await fetch("https://api.github.com/users/tiyasha22");
     const json = await data.json();
     this.setState({ userInfo: json });
-    console.log(json);
   }
   render() {
     // console.log(this.props.name + "  render");

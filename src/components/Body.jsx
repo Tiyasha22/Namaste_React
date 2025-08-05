@@ -1,31 +1,40 @@
-import { useState, useEffect } from "react";
 import RestaurantCard, { withAggregatedDiscount } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
-const Body = () => {
-  const [listOfRestaurants, setListOfRestaurant] = useState([]);
-  const [filteredRestaurant, setFilteredRestaurant] = useState([]);
-  const [searchContent, setSearchContent] = useState("");
-  const RestaurantWithDiscount = withAggregatedDiscount(RestaurantCard);
-  useEffect(() => {
-    fetchData();
-  }, []);
-  // console.log("Body component rendered", listOfRestaurants);
-  const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.99740&lng=79.00110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
-    const json = await data.json();
+import useListOfRestaurants from "../utils/useListOfRestaurants.js";
 
-    setListOfRestaurant(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants || []
-    );
-    setFilteredRestaurant(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
-        ?.restaurants || []
-    );
-  };
+const Body = () => {
+  // const [listOfRestaurants, setListOfRestaurant] = useState([]);
+  // const [filteredRestaurant, setFilteredRestaurant] = useState([]);
+  // const [searchContent, setSearchContent] = useState("");
+  const {
+    listOfRestaurants,
+    filteredRestaurant,
+    searchContent,
+    setSearchContent,
+    setFilteredRestaurant,
+    isLoading,
+  } = useListOfRestaurants();
+  const RestaurantWithDiscount = withAggregatedDiscount(RestaurantCard);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+  // console.log("Body component rendered", listOfRestaurants);
+  // const fetchData = async () => {
+  //   const data = await fetch(
+  //     "https://www.swiggy.com/dapi/restaurants/list/v5?lat=21.99740&lng=79.00110&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+  //   );
+  //   const json = await data.json();
+
+  //   setListOfRestaurant(
+  //     json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+  //       ?.restaurants || []
+  //   );
+  //   setFilteredRestaurant(
+  //     json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+  //       ?.restaurants || []
+  //   );
+  // };
 
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
@@ -57,6 +66,13 @@ const Body = () => {
           >
             Search
           </button>
+        </div>
+        <div>
+          <label>Username:</label>
+          <input
+            type="text"
+            className=" mx-2 p-2 border border-solid rounded-lg border-black"
+          />
         </div>
         <button
           className="px-2 bg-yellow-200 rounded-lg"
